@@ -1,0 +1,735 @@
+/* ========================================================
+   Mallina's Chocolates - 3D Interactive Hero Section
+   Inspired by palmo.co.in 3D product experience
+   ======================================================== */
+
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  padding-top: calc(var(--header-height) + 1.5rem);
+  padding-bottom: var(--space-4xl);
+  overflow: hidden;
+  background-color: #FEF7E6;
+  background: radial-gradient(circle at 75% 45%, var(--ambient-bg, rgba(218, 60, 36, 0.12)) 0%, transparent 60%),
+              linear-gradient(180deg, #FEF7E6 0%, #F8EED6 50%, #F5E8C9 100%);
+  transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Ambient dynamic backdrops */
+.ambientGlow {
+  position: absolute;
+  top: 15%;
+  right: 10%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--flavor-glow, #DA3C24) 0%, transparent 70%);
+  opacity: 0.15;
+  filter: blur(80px);
+  pointer-events: none;
+  transition: all 0.8s ease;
+  animation: floatAmbient 8s ease-in-out infinite alternate;
+}
+
+.ambientSpot1 {
+  position: absolute;
+  bottom: 5%;
+  left: -100px;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 210, 101, 0.25) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.ambientSpot2 {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62, 39, 35, 0.08) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+@keyframes floatAmbient {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, 40px) scale(1.1); }
+}
+
+/* ========================================================
+   Main Grid Layout
+   ======================================================== */
+.heroGrid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: var(--space-3xl);
+  position: relative;
+  z-index: 10;
+  flex: 1;
+}
+
+/* ========================================================
+   Left Column: Editorial Narrative & Controls
+   ======================================================== */
+.contentCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  max-width: 580px;
+}
+
+/* Top Pill Badge */
+.badgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(16, 16, 16, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 10px rgba(16, 16, 16, 0.03);
+  width: fit-content;
+}
+
+.badgeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--flavor-glow, var(--color-red));
+  box-shadow: 0 0 10px var(--flavor-glow, var(--color-red));
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+.badgeText {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  letter-spacing: 0.02em;
+}
+
+.badgeHighlight {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: var(--color-dark);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Main Headline */
+.heroHeadline {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.08;
+  margin: 0;
+}
+
+.headlineSub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-caramel);
+  margin-bottom: 0.5rem;
+}
+
+.headlineMain {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 4.4vw, 3.8rem);
+  font-weight: 800;
+  color: var(--color-dark);
+  letter-spacing: -0.02em;
+}
+
+.headlineAccent {
+  color: var(--color-red);
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+}
+
+.heroDescription {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-dark-soft);
+  margin: 0;
+}
+
+/* Turn & Reveal Controller Bar */
+.stageController {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+
+.revealBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.6rem;
+  background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red-dark) 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 18px rgba(218, 60, 36, 0.32);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.revealBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 26px rgba(218, 60, 36, 0.42);
+}
+
+.revealBtnActive {
+  background: linear-gradient(135deg, #3E2723 0%, #1A100E 100%);
+  box-shadow: 0 4px 18px rgba(62, 39, 35, 0.3);
+}
+
+.revealBtnSpark {
+  font-size: 1.1rem;
+}
+
+.revealBtnText {
+  letter-spacing: 0.01em;
+}
+
+.revealBtnArrow {
+  font-size: 1.1rem;
+  transition: transform var(--transition-fast);
+}
+
+.revealBtn:hover .revealBtnArrow {
+  transform: translateX(4px);
+}
+
+.orderCta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 1.6rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid var(--color-dark);
+  color: var(--color-dark);
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(16, 16, 16, 0.04);
+}
+
+.orderCta:hover {
+  background: var(--color-dark);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Flavor Card Selected Box */
+.flavorCardSelected {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.35rem;
+  box-shadow: 0 4px 18px rgba(62, 39, 35, 0.04);
+  border-left: 4px solid var(--flavor-glow, var(--color-red));
+  transition: all 0.3s ease;
+}
+
+.flavorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.flavorNameWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.flavorEmoji {
+  font-size: 1.4rem;
+}
+
+.flavorTitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.flavorOrigin {
+  font-size: 0.75rem;
+  color: var(--color-caramel);
+  font-weight: 600;
+}
+
+.flavorBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(218, 60, 36, 0.09);
+  color: var(--color-red);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.flavorNotes {
+  font-size: 0.85rem;
+  color: var(--color-dark-soft);
+  line-height: 1.5;
+}
+
+.flavorNotes strong {
+  color: var(--color-dark);
+}
+
+/* Key Craft Metrics */
+.craftMetrics {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(62, 39, 35, 0.08);
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.metricVal {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1;
+}
+
+.metricLbl {
+  font-size: 0.72rem;
+  color: var(--color-dark-soft);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+.metricDivider {
+  width: 1px;
+  height: 28px;
+  background: rgba(62, 39, 35, 0.12);
+}
+
+/* ========================================================
+   Right Column: 3D WebGL Viewport
+   ======================================================== */
+.viewportCol {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.canvasContainer {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  max-width: 580px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.canvasContainer.dragging {
+  cursor: grabbing;
+}
+
+.webglCanvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  outline: none;
+}
+
+/* 3D Viewport Top Overlay */
+.viewportOverlayTop {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.stageIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.stageStep {
+  color: var(--color-dark-soft);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.stageStepActive {
+  color: var(--color-red);
+  opacity: 1;
+  font-weight: 700;
+}
+
+.stageArrow {
+  font-size: 0.65rem;
+  color: var(--color-caramel);
+}
+
+.rotationToggle {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.rotationToggle:hover {
+  background: var(--color-dark);
+  color: #FFFFFF;
+}
+
+/* 3D Drag Hint Floating Badge */
+.dragHint {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(16, 16, 16, 0.75);
+  color: #FFFFFF;
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  animation: pulseHint 3s infinite ease-in-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dragHintIcon {
+  font-size: 1rem;
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.96); }
+}
+
+/* 3D Viewport Bottom Overlay */
+.viewportOverlayBottom {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+}
+
+.quickTransformBtn {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-dark);
+  border: 1.5px solid var(--flavor-glow, var(--color-red));
+  backdrop-filter: blur(14px);
+  padding: 0.6rem 1.3rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+}
+
+.quickTransformBtn:hover {
+  background: var(--flavor-glow, var(--color-red));
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+/* ========================================================
+   Bottom Interactive Flavor Shelf (Palmo reference homage)
+   ======================================================== */
+.flavorShelf {
+  max-width: var(--max-width);
+  margin: var(--space-2xl) auto 0;
+  padding: 0 var(--space-xl);
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.shelfHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.shelfTitle {
+  display: flex;
+  flex-direction: column;
+}
+
+.shelfTitle span {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.shelfTitle small {
+  font-size: 0.78rem;
+  color: var(--color-caramel);
+  font-weight: 500;
+}
+
+.viewAllLink {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-red);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.viewAllLink:hover {
+  color: var(--color-red-dark);
+  text-decoration: underline;
+}
+
+.flavorGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.flavorCard {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.2rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 10px rgba(62, 39, 35, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.flavorCard:hover {
+  background: #FFFFFF;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(62, 39, 35, 0.08);
+  border-color: rgba(218, 60, 36, 0.3);
+}
+
+.flavorCardActive {
+  background: #FFFFFF !important;
+  border-color: var(--flavor-glow, var(--color-red)) !important;
+  box-shadow: 0 10px 28px rgba(218, 60, 36, 0.18) !important;
+  transform: translateY(-4px);
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardIndex {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-caramel);
+  letter-spacing: 0.05em;
+}
+
+.cardCocoaTag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(16, 16, 16, 0.06);
+  color: var(--color-dark);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.cardName {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1.25;
+}
+
+.cardTagline {
+  font-size: 0.75rem;
+  color: var(--color-dark-soft);
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.cardBottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(16, 16, 16, 0.06);
+}
+
+.cardPrice {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.cardPreviewBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-red);
+}
+
+.flavorCardActive .cardPreviewBadge {
+  color: var(--color-white);
+  background: var(--color-red);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+/* ========================================================
+   Responsive Media Queries
+   ======================================================== */
+@media (max-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .contentCol {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .badgePill {
+    margin: 0 auto;
+  }
+
+  .stageController {
+    justify-content: center;
+  }
+
+  .flavorCardSelected {
+    text-align: left;
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .craftMetrics {
+    justify-content: center;
+  }
+
+  .canvasContainer {
+    height: 480px;
+    margin: 0 auto;
+  }
+
+  .flavorGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .heroHeadline {
+    font-size: 2.2rem;
+  }
+
+  .canvasContainer {
+    height: 400px;
+  }
+
+  .flavorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stageController {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .revealBtn, .orderCta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .craftMetrics {
+    gap: 0.75rem;
+  }
+
+  .metricVal {
+    font-size: 1.1rem;
+  }
+}
+

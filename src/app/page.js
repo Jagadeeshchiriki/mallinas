@@ -1,69 +1,42 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// import HomeHero from './components/Home/HomeHero/HomeHero';
+import HomeHero2 from './components/Home/HomeHero2/HomeHero2';
+import CollectionSection from './components/Home/CollectionSection/CollectionSection';
+import JourneySection from './components/Home/JourneySection/JourneySection';
+import FarmEscapeSection from './components/Home/FarmEscapeSection/FarmEscapeSection';
+import VisualDiarySection from './components/Home/VisualDiarySection/VisualDiarySection';
+import StatementBanner from './components/Home/StatementBanner/StatementBanner';
+import NewsletterSection from './components/Home/NewsletterSection/NewsletterSection';
 
-export default function Home() {
+export const metadata = {
+  title: "Mallina's Chocolates | The Soul of the Soil. The Art of the Bar.",
+  description:
+    "Experience Mallina's finest farm-to-bar artisan chocolate, single-origin cacao collections, estate stays, and visual diary from the hills of East Godavari.",
+};
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="home-page-container">
+      {/* 1. Hero: THE SOUL OF THE SOIL. THE ART OF THE BAR. */}
+      {/* <HomeHero /> */}
+      <HomeHero2 />
+
+      {/* 2. Collection: FARM TO BAR COLLECTION (6 Categories) */}
+      <CollectionSection />
+
+      {/* 3. Story: THE MALLINAS JOURNEY */}
+      <JourneySection />
+
+      {/* 4. Sanctuary: A FARM ESCAPE ("THE STAY" Interactive Slices) */}
+      <FarmEscapeSection />
+
+      {/* 5. Gallery: THE VISUAL DIARY (Moments from the soil, craft, and stay) */}
+      <VisualDiarySection />
+
+      {/* 6. Statement: CHOCOLATE, LIKE NOWHERE ELSE ON EARTH. */}
+      <StatementBanner />
+
+      {/* 7. Newsletter: STAY IN THE LOOP */}
+      <NewsletterSection />
     </div>
   );
 }

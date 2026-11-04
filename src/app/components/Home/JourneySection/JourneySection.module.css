@@ -1,0 +1,123 @@
+.journeySection {
+  background-color: #FAF4E8;
+  padding: var(--space-4xl) 0;
+  position: relative;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 540px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 800;
+  color: #381E14;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.paragraphs p {
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: #583F34;
+}
+
+.ctaWrapper {
+  margin-top: 0.5rem;
+}
+
+.discoverBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.2rem;
+  background-color: #E28C1C;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 3px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(226, 140, 28, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.discoverBtn:hover {
+  background-color: #C87510;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(226, 140, 28, 0.45);
+}
+
+.imageCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.imageCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(56, 30, 20, 0.12);
+}
+
+.plantationImage {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageCard:hover .plantationImage {
+  transform: scale(1.04);
+}
+
+.imageShadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .textCol {
+    max-width: 100%;
+  }
+
+  .imageCard {
+    aspect-ratio: 16 / 10;
+  }
+}
+
