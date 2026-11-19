@@ -3,31 +3,35 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './VisualDiarySection.module.css';
+import harvestImage from '../../../images/home/1770452592485.png';
+import roastingImage from '../../../images/home/1770452670706.png';
+import sanctuaryImage from '../../../images/home/1770452755922.png';
+import finishedBarImage from '../../../images/home/123.jpg.jpeg';
 
 const DIARY_ITEMS = [
   {
     id: 1,
     title: 'The Harvest',
     caption: 'Hands cracking open fresh, ripe cacao pods at dawn.',
-    image: '/images/home/1770452592485.png',
+    image: harvestImage,
   },
   {
     id: 2,
     title: 'The Roasting',
     caption: 'Freshly roasted cacao beans steaming in wooden cooling trays.',
-    image: '/images/home/1770452670706.png',
+    image: roastingImage,
   },
   {
     id: 3,
     title: 'The Sanctuary',
     caption: 'Sunlight filtering through morning mist into the estate villa.',
-    image: '/images/home/1770452755922.png',
+    image: sanctuaryImage,
   },
   {
     id: 4,
     title: 'The Finished Bar',
     caption: 'Stone-ground, single-origin chocolate bars resting on linen.',
-    image: '/images/home/123.jpg.jpeg',
+    image: finishedBarImage,
     isViewAllCard: true,
   },
 ];

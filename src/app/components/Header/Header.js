@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import logoImage from '../../images/home/logo.png';
 import styles from './Header.module.css';
 
 const navLinks = [
@@ -17,6 +18,8 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isDarkHero = pathname === '/' || pathname === '/shop' || pathname === '/about';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,14 +57,16 @@ export default function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}>
+    <header
+      className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}
+    >
       {/* Main Navbar */}
       <div className={styles.headerNav}>
         <div className={styles.headerContainer}>
           {/* Official Brand Logo */}
           <Link href="/" className={styles.logoLink} aria-label="Mallinas Chocolates Home">
             <Image
-              src="/images/logo.png"
+              src={logoImage}
               alt="Mallinas Chocolates"
               width={145}
               height={53}
@@ -90,29 +95,41 @@ export default function Header() {
 
           {/* Header Action CTAs */}
           <div className={styles.navActions}>
-            {/* Cart / Shop Link */}
             <Link
               href="/shop"
-              className={styles.actionBagBtn}
-              aria-label="View shopping cart"
-              title="Browse Shop"
+              className={styles.headerActionBtn}
+              aria-label="Search products"
+              title="Search products"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M2.25 2.25a1.25 1.25 0 0 0 0 2.5h1.6l3.58 8.56-1.14 1.76a2.75 2.75 0 0 0 2.31 4.23h10.15a1.25 1.25 0 1 0 0-2.5H8.6a.25.25 0 0 1-.21-.38l.86-1.34h8.21a3 3 0 0 0 2.67-1.63l2.55-4.98a2.25 2.25 0 0 0-2-3.27H6.63L5.7 3.02a1.25 1.25 0 0 0-1.15-.77h-2.3Z" />
-                <circle cx="9" cy="21.25" r="1.5" />
-                <circle cx="18.5" cy="21.25" r="1.5" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="16.65" y1="16.65" x2="21" y2="21" />
               </svg>
             </Link>
 
-            {/* Order Now Button */}
-            <Link href="/shop" className={styles.orderBtn}>
-              <span className={styles.orderBtnText}>Order Now</span>
-              <span className={styles.orderBtnIcon}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </span>
+            <Link
+              href="/contact"
+              className={styles.headerActionBtn}
+              aria-label="Login or account support"
+              title="Login"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4.5 21a7.5 7.5 0 0 1 15 0" />
+              </svg>
+            </Link>
+
+            <Link
+              href="/shop"
+              className={styles.headerActionBtn}
+              aria-label="View shopping cart"
+              title="Shopping cart"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="9" cy="20" r="1" />
+                <circle cx="19" cy="20" r="1" />
+                <path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.55h7.95a2 2 0 0 0 1.95-1.56L21 7H6" />
+              </svg>
             </Link>
 
             {/* Hamburger Button for Mobile */}
@@ -146,7 +163,7 @@ export default function Header() {
         <div className={styles.mobileHeader}>
           <div className={styles.mobileLogo}>
             <Image
-              src="/images/logo.png"
+              src={logoImage}
               alt="Mallinas Chocolates"
               width={130}
               height={48}
@@ -223,6 +240,19 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      <button
+        type="button"
+        className={`${styles.scrollTopBtn} ${scrolled ? styles.scrollTopBtnVisible : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Scroll to top"
+        title="Back to top"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <polyline points="6 10 12 4 18 10" />
+        </svg>
+      </button>
     </header>
   );
 }

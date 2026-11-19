@@ -1,5 +1,5 @@
 .diarySection {
-  background-color: #FAF4E8;
+  background-color: var(--color-cream);
   padding: var(--space-4xl) 0;
   position: relative;
 }
@@ -18,7 +18,7 @@
 .sectionTitle {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 3.6vw, 2.85rem);
-  font-weight: 800;
+  font-weight: 650;
   color: #381E14;
   letter-spacing: 0.08em;
   text-transform: uppercase;

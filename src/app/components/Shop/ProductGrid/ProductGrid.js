@@ -3,6 +3,18 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import styles from './ProductGrid.module.css';
+import dark70Image from '../../../../../public/images/products/dark-70.jpg';
+import dark70HazelnutImage from '../../../../../public/images/products/dark-70-hazelnut.jpg';
+import dark70CashewImage from '../../../../../public/images/products/dark-70-cashew.jpg';
+import dark70AlmondImage from '../../../../../public/images/products/dark-70-almond.png';
+import dark80Image from '../../../../../public/images/products/dark-80.png';
+import dark90Image from '../../../../../public/images/products/dark-90.png';
+import dark100Image from '../../../../../public/images/products/dark-100.png';
+import milk50Image from '../../../../../public/images/products/milk-50.jpg';
+import milk50CashewImage from '../../../../../public/images/products/milk-50-cashew.jpg';
+import milk50AlmondImage from '../../../../../public/images/products/milk-50-almond.jpg';
+import milk50HazelnutImage from '../../../../../public/images/products/milk-50-hazelnut.jpg';
+import antioxidantImage from '../../../../../public/images/products/antioxidant.png';
 
 const PRODUCTS = [
   {
@@ -10,84 +22,84 @@ const PRODUCTS = [
     name: '70% Dark Chocolate',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-70.jpg',
+    image: dark70Image,
   },
   {
     id: 2,
     name: '70% Dark Chocolate with Hazelnuts',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-70-hazelnut.jpg',
+    image: dark70HazelnutImage,
   },
   {
     id: 3,
     name: '70% Dark Chocolate with Cashewnuts',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-70-cashew.jpg',
+    image: dark70CashewImage,
   },
   {
     id: 4,
     name: '70% Dark Chocolate with Almonds',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-70-almond.png',
+    image: dark70AlmondImage,
   },
   {
     id: 5,
     name: '80% Dark Chocolate',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-80.png',
+    image: dark80Image,
   },
   {
     id: 6,
     name: '90% Dark Chocolate',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-90.png',
+    image: dark90Image,
   },
   {
     id: 7,
     name: '100% Dark Chocolate',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/dark-100.png',
+    image: dark100Image,
   },
   {
     id: 8,
     name: '50% Milk Chocolate',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/milk-50.jpg',
+    image: milk50Image,
   },
   {
     id: 9,
     name: '50% Milk Chocolate with Cashew',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/milk-50-cashew.jpg',
+    image: milk50CashewImage,
   },
   {
     id: 10,
     name: '50% Milk Chocolate with Almonds',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/milk-50-almond.jpg',
+    image: milk50AlmondImage,
   },
   {
     id: 11,
     name: '50% Milk Chocolate with Hazelnuts',
     price: 'Rs. 200',
     priceVal: 200,
-    image: '/images/products/milk-50-hazelnut.jpg',
+    image: milk50HazelnutImage,
   },
   {
     id: 12,
     name: 'Antioxidant Reserve',
     price: 'Rs. 210',
     priceVal: 210,
-    image: '/images/products/antioxidant.png',
+    image: antioxidantImage,
   },
 ];
 

@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import styles from './JourneySection.module.css';
+import plantationImage from '../../../images/home/mallinasbuilding.webp';
 
 export default function JourneySection() {
   return (
@@ -30,18 +30,13 @@ export default function JourneySection() {
               </p>
             </div>
 
-            <div className={styles.ctaWrapper}>
-              <Link href="/about" className={styles.discoverBtn}>
-                Discover More
-              </Link>
-            </div>
           </div>
 
           {/* Right Image Column */}
           <div className={styles.imageCol}>
             <div className={styles.imageCard}>
               <Image
-                src="/images/home/Generated Image September 24, 2025 - 4_51PM.png"
+                src={plantationImage}
                 alt="Misty morning sunrise over the Mallinas cocoa plantation"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"

@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import styles from './StoryChapters.module.css';
+import harvestImage from '../../../images/home/1770452592485.png';
+import canopyImage from '../../../images/home/Gemini_Generated_Image_etqrivetqrivetqr (1).png';
+import fermentationImage from '../../../images/home/1770452670706.png';
+import finishedBarImage from '../../../images/home/123.jpg.jpeg';
 
 const CHAPTERS = [
   {
@@ -19,7 +23,7 @@ const CHAPTERS = [
       { val: '0%', label: 'Chemical Weedicides' },
       { val: '100%', label: 'Goshala Cow Manure' },
     ],
-    image: '/images/home/1770452592485.png',
+    image: harvestImage,
     imageAlt: 'Hand cracking open freshly harvested yellow cocoa pod with glistening white beans',
   },
   {
@@ -36,7 +40,7 @@ const CHAPTERS = [
       { val: 'Natural', label: 'Midge Fly Habitat' },
       { val: 'Zero', label: 'Monoculture Clearing' },
     ],
-    image: '/images/home/Gemini_Generated_Image_etqrivetqrivetqr (1).png',
+    image: canopyImage,
     imageAlt: 'Lush green multi-tier cocoa canopy under morning Godavari sky',
   },
   {
@@ -53,7 +57,7 @@ const CHAPTERS = [
       { val: '100%', label: 'Natural Solar Drying' },
       { val: 'Zero', label: 'Artificial Starter Cultures' },
     ],
-    image: '/images/home/1770452670706.png',
+    image: fermentationImage,
     imageAlt: 'Freshly roasted cacao beans steaming in artisanal cooling tray',
   },
   {
@@ -70,7 +74,7 @@ const CHAPTERS = [
       { val: '< 20 µm', label: 'Silky Velvet Particle Size' },
       { val: '100%', label: 'Pure Cocoa Butter' },
     ],
-    image: '/images/home/123.jpg.jpeg',
+    image: finishedBarImage,
     imageAlt: 'Finished Mallinas single-origin chocolate bars wrapped in artisan gold foil',
   },
 ];

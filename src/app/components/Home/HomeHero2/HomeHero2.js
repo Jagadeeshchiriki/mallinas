@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import darkPralineImage from '../../../images/home/Dark Praline.png';
-import milkPralineImage from '../../../images/home/Milk Praline.png';
+import darkChocolateImage from '../../../images/home/Darkchocolate_70.jpeg';
+import milkHazelnutImage from '../../../images/home/Milk chocolate_Hazelnuts.jpeg';
 import styles from '../HomeHero/HomeHero.module.css';
 import modelStyles from './HomeHero2.module.css';
 
@@ -37,10 +37,12 @@ function disposeObject3D(object) {
 
 function CocoaGlbModel({ progressRef }) {
   const containerRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return undefined;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return undefined;
 
     let cancelled = false;
     let animationFrame = 0;
@@ -62,6 +64,7 @@ function CocoaGlbModel({ progressRef }) {
       camera.position.set(0, 0.05, 4.5);
 
       renderer = new THREE.WebGLRenderer({
+        canvas,
         alpha: true,
         antialias: true,
         powerPreference: 'high-performance',
@@ -71,7 +74,6 @@ function CocoaGlbModel({ progressRef }) {
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.1;
-      container.appendChild(renderer.domElement);
 
       scene.add(new THREE.HemisphereLight(0xfff4e8, 0x4c2218, 2.2));
 
@@ -146,10 +148,6 @@ function CocoaGlbModel({ progressRef }) {
       disposed = true;
       disposeObject3D(model);
       renderer?.dispose();
-      renderer?.forceContextLoss();
-
-      const canvas = renderer?.domElement;
-      if (canvas?.parentNode === container) container.removeChild(canvas);
     };
   }, [progressRef]);
 
@@ -159,7 +157,9 @@ function CocoaGlbModel({ progressRef }) {
       className={modelStyles.cocoaCanvas}
       role="img"
       aria-label="Interactive three-dimensional cocoa pod"
-    />
+    >
+      <canvas ref={canvasRef} aria-hidden="true" />
+    </div>
   );
 }
 
@@ -271,8 +271,8 @@ export default function HomeHero2() {
 
         <div className={`${styles.chocolateFrame} ${styles.chocolateFrameTop}`}>
           <Image
-            src={darkPralineImage}
-            alt="Dark chocolate heart pralines"
+            src={darkChocolateImage}
+            alt="Mallinas 100% dark chocolate"
             fill
             sizes="(max-width: 768px) 42vw, 24vw"
             className={styles.chocolateImage}
@@ -281,8 +281,8 @@ export default function HomeHero2() {
 
         <div className={`${styles.chocolateFrame} ${styles.chocolateFrameBottom}`}>
           <Image
-            src={milkPralineImage}
-            alt="Milk chocolate heart pralines"
+            src={milkHazelnutImage}
+            alt="Mallinas milk chocolate with hazelnuts"
             fill
             sizes="(max-width: 768px) 48vw, 25vw"
             className={styles.chocolateImage}

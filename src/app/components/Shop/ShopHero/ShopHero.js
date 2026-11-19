@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import shopHeroImage from '../../../../../public/images/shop-hero.png';
 import styles from './ShopHero.module.css';
 
 export default function ShopHero() {
@@ -8,7 +9,7 @@ export default function ShopHero() {
     <section className={styles.shopHeroSection}>
       <div className={styles.heroBgWrapper}>
         <Image
-          src="/images/shop-hero.png"
+          src={shopHeroImage}
           alt="Single Origin Collection - Mallinas Artisan Chocolates"
           fill
           priority

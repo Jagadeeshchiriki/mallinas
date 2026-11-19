@@ -1,9 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './FarmEscapeSection.module.css';
+import stayImage from '../../../images/Rectangle_2.png';
+import diningImage from '../../../images/Rectangle_3.png';
+import hearthImage from '../../../images/home/Darkchocolate_70.jpeg';
+import trailsImage from '../../../images/about/CANOPY.jpg';
+import experienceImage from '../../../images/santuary.jpg';
 
 const ESCAPES = [
   {
@@ -11,104 +15,125 @@ const ESCAPES = [
     title: 'THE STAY',
     subtitle: 'A minimalist, sun-drenched sanctuary nestled in the heart of our cocoa estate.',
     tagline: 'Private Villa',
-    image: '/images/home/Gemini_Generated_Image_jjpy0wjjpy0wjjpy (1).png',
-    link: '/workshop',
+    image: stayImage,
   },
   {
     id: 'dining',
     title: 'FARM DINING',
     subtitle: 'Estate-baked sourdough, tropical fruit preserves, and fresh cocoa infusions.',
     tagline: 'Farm to Table',
-    image: '/images/home/Gemini_Generated_Image_1y0sjp1y0sjp1y0s (1).png',
-    link: '/workshop',
+    image: diningImage,
   },
   {
     id: 'grill',
     title: 'THE HEARTH',
     subtitle: 'Evenings by the wood fire with artisanal cocoa rubs and local spices.',
     tagline: 'Open Fire BBQ',
-    image: '/images/home/Gemini_Generated_Image_a1ktz4a1ktz4a1kt (1).png',
-    link: '/workshop',
+    image: hearthImage,
   },
   {
     id: 'trails',
     title: 'CANOPY TRAILS',
     subtitle: 'Guided botanical walks through flowering cocoa trees and bird sanctuaries.',
     tagline: 'Nature Trails',
-    image: '/images/home/Gemini_Generated_Image_etqrivetqrivetqr (1).png',
-    link: '/workshop',
+    image: trailsImage,
   },
   {
-    id: 'pool',
-    title: 'SANCTUARY WATERS',
-    subtitle: 'Natural stone plunge pools surrounded by wild ginger and cocoa foliage.',
-    tagline: 'Serene Plunge Pool',
-    image: '/images/home/Gemini_Generated_Image_r8nalzr8nalzr8na (1).png',
-    link: '/workshop',
+    id: 'experience',
+    title: 'THE EXPERIENCE',
+    subtitle: 'Turn everyday moments into something special',
+    tagline: 'Moments to Savour',
+    image: experienceImage,
   },
 ];
 
 export default function FarmEscapeSection() {
+  const outerRef = useRef(null);
   const [activeIdx, setActiveIdx] = useState(0);
 
+  useEffect(() => {
+    const outer = outerRef.current;
+    if (!outer) return;
+
+    const onScroll = () => {
+      const rect = outer.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const totalScroll = outer.offsetHeight - window.innerHeight;
+      const prog = Math.min(Math.max(scrolled / totalScroll, 0), 1);
+      const idx = Math.min(
+        Math.floor(prog * ESCAPES.length),
+        ESCAPES.length - 1
+      );
+      setActiveIdx(idx);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <section className={styles.escapeSection}>
-      <div className={styles.container}>
-        <div className={styles.layout}>
-          {/* Left Vertical Brand Label */}
-          <div className={styles.sideLabelWrapper}>
-            <h2 className={styles.sideTitle}>A FARM ESCAPE</h2>
-          </div>
+    <div
+      ref={outerRef}
+      className={styles.outerWrapper}
+      style={{ height: `${ESCAPES.length * 100}vh` }}
+    >
+      <div className={styles.stickyContainer}>
 
-          {/* Right Horizontal Accordion Carousel */}
-          <div className={styles.accordionWrapper}>
-            {ESCAPES.map((item, idx) => {
-              const isActive = activeIdx === idx;
-              return (
-                <div
-                  key={item.id}
-                  className={`${styles.slice} ${isActive ? styles.sliceActive : ''}`}
-                  onMouseEnter={() => setActiveIdx(idx)}
-                  onClick={() => setActiveIdx(idx)}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isActive}
-                >
-                  {/* Background Image */}
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 900px) 100vw, 50vw"
-                    className={styles.sliceImage}
-                  />
-                  <div className={styles.sliceOverlay} />
-
-                  {/* Expanded Content View */}
-                  {isActive && (
-                    <div className={styles.expandedContent}>
-                      <span className={styles.tagline}>{item.tagline}</span>
-                      <h3 className={styles.sliceTitle}>{item.title}</h3>
-                      <p className={styles.sliceDesc}>{item.subtitle}</p>
-                      <Link href={item.link} className={styles.exploreLink}>
-                        Explore Sanctuary →
-                      </Link>
-                    </div>
-                  )}
-
-                  {/* Collapsed Strip Title */}
-                  {!isActive && (
-                    <div className={styles.collapsedLabel}>
-                      <span>{item.title}</span>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+        {/* ── LEFT: Heading + description only (never changes) ── */}
+        <div className={styles.leftPanel}>
+          <div className={styles.leftInner}>
+            <h2 className={styles.heading}>
+              A FARM<br />ESCAPE
+            </h2>
+            <p className={styles.desc}>
+              Five curated experiences from our Godavari cocoa estate — where nature,
+              slow craft, and genuine warmth come together in one living sanctuary.
+            </p>
           </div>
         </div>
+
+        {/* ── RIGHT: Accordion — active=large, others=thin strips ── */}
+        <div className={styles.rightPanel}>
+          {ESCAPES.map((item, idx) => {
+            const isActive = idx === activeIdx;
+            return (
+              <div
+                key={item.id}
+                className={`${styles.card} ${isActive ? styles.cardActive : styles.cardStrip}`}
+              >
+                {/* Full image — always rendered, just cropped in strip mode */}
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 860px) 85vw, 65vw"
+                  className={styles.cardImage}
+                  priority={idx === 0}
+                />
+
+                {/* Overlay — lighter on active, heavier on strips */}
+                <div className={`${styles.cardOverlay} ${isActive ? styles.overlayActive : styles.overlayStrip}`} />
+
+                {/* Active card: full content block at bottom */}
+                {isActive && (
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
+                    <p className={styles.cardDesc}>{item.subtitle}</p>
+                  </div>
+                )}
+
+                {/* Strip (inactive): rotated title */}
+                {!isActive && (
+                  <div className={styles.stripLabel}>
+                    <span className={styles.stripTitle}>{item.title}</span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
-

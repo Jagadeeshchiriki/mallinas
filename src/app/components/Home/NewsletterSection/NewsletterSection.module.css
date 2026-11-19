@@ -1,5 +1,5 @@
 .newsletterSection {
-  background-color: #FAF4E8;
+  background-color: var(--color-cream);
   padding: var(--space-3xl) 0 var(--space-4xl);
   border-bottom: 1px solid rgba(56, 30, 20, 0.1);
 }
@@ -21,7 +21,7 @@
 .heading {
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 2.8vw, 2.4rem);
-  font-weight: 800;
+  font-weight: 650;
   color: #381E14;
   letter-spacing: 0.1em;
   text-transform: uppercase;

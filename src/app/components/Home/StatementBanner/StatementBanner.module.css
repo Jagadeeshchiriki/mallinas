@@ -1,5 +1,5 @@
 .bannerSection {
-  background-color: #FAF4E8;
+  background-color: var(--color-cream);
   padding: var(--space-4xl) 0;
   text-align: center;
 }
@@ -29,7 +29,7 @@
 .statementText {
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4.2vw, 3.8rem);
-  font-weight: 800;
+  font-weight: 700;
   color: #381E14;
   letter-spacing: 0.12em;
   text-transform: uppercase;

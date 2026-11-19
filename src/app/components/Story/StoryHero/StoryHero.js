@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import plantationImage from '../../../images/home/Generated Image September 24, 2025 - 4_51PM.png';
 import styles from './StoryHero.module.css';
 
 export default function StoryHero() {
@@ -10,7 +11,7 @@ export default function StoryHero() {
       {/* Background with Ambient Vignette */}
       <div className={styles.heroBgWrapper}>
         <Image
-          src="/images/home/Generated Image September 24, 2025 - 4_51PM.png"
+          src={plantationImage}
           alt="Misty morning over Mallinas Godavari Cocoa Plantation"
           fill
           priority
