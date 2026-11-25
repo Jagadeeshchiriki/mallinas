@@ -25,13 +25,6 @@ const ESCAPES = [
     image: diningImage,
   },
   {
-    id: 'grill',
-    title: 'THE HEARTH',
-    subtitle: 'Evenings by the wood fire with artisanal cocoa rubs and local spices.',
-    tagline: 'Open Fire BBQ',
-    image: hearthImage,
-  },
-  {
     id: 'trails',
     title: 'CANOPY TRAILS',
     subtitle: 'Guided botanical walks through flowering cocoa trees and bird sanctuaries.',

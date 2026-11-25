@@ -8,11 +8,11 @@ import styles from './TryMoreTaste.module.css';
 import tasteDarkchocolate from '../../../../../public/images/products/dark-100.png';
 import tasteRaspberry from '../../../../../public/images/products/milk-50.jpg';
 import tasteBlueberry from '../../../../../public/images/products/dark-80.png';
-import tasteMatcha from '../../../../../public/images/products/dark-70-cashew.jpg';
+import tastemilkchocolate from '../../../../../public/images/products/milkchocolate.png';
 import tasteHazelnutDark from '../../../../../public/images/products/dark-90.png';
 import tasteAlmondDark from '../../../../../public/images/products/Dark chocolate_Almonds.jpeg';
 import tasteCashewDark from '../../../../../public/images/products/dark-70-cashew.jpg';
-import tasteHazelnutMilk from '../../../../../public/images/products/taste-hazelnut-milk.jpg';
+import tasteHazelnutMilk from '../../../../../public/images/products/milk-50-hazelnut.jpg';
 import tasteDarkPraline from '../../../../../public/images/products/taste-dark-praline.png';
 import tasteMilkPraline from '../../../../../public/images/products/taste-milk-praline.png';
 
@@ -26,7 +26,7 @@ const PRODUCTS = [
   },
   {
     id: 2,
-    name: 'Milk Chocolate',
+    name: '50% Milk Chocolate',
     subtitle: 'A flavorful blend of raspberry and chocolate',
     price: 'Rs. 200.00',
     image: tasteRaspberry,
@@ -40,10 +40,10 @@ const PRODUCTS = [
   },
   {
     id: 4,
-    name: '70% Dark chocolate',
+    name: 'Milk chocolate',
     subtitle: 'A smooth blend of matcha and chocolate',
     price: 'Rs. 200.00',
-    image: tasteMatcha,
+    image: tastemilkchocolate,
   },
   {
     id: 5,
@@ -89,10 +89,6 @@ const PRODUCTS = [
   },
 ];
 
-const LOOPED_PRODUCTS = Array.from({ length: 3 }, (_, cycle) =>
-  PRODUCTS.map((product) => ({ ...product, loopKey: `${cycle}-${product.id}` })),
-).flat();
-
 export default function TryMoreTaste() {
   const trackRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);
@@ -111,30 +107,35 @@ export default function TryMoreTaste() {
     if (!card) return;
     const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 24;
     const cardWidth = card.offsetWidth + gap;
-    const cycleWidth = cardWidth * PRODUCTS.length;
-
-    if (track.scrollLeft < cycleWidth * 0.5) {
-      track.scrollLeft += cycleWidth;
-    } else if (track.scrollLeft > cycleWidth * 1.5) {
-      track.scrollLeft -= cycleWidth;
-    }
-
-    const position = ((track.scrollLeft - cycleWidth) % cycleWidth + cycleWidth) % cycleWidth;
-    setActiveDot(Math.round(position / cardWidth) % PRODUCTS.length);
+    const index = Math.min(
+      PRODUCTS.length - 1,
+      Math.max(0, Math.round(track.scrollLeft / cardWidth))
+    );
+    setActiveDot(index);
   }, []);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return undefined;
-    const card = track.querySelector(`.${styles.card}`);
-    const frameId = window.requestAnimationFrame(() => {
-      const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 24;
-      if (card) track.scrollLeft = (card.offsetWidth + gap) * PRODUCTS.length;
-    });
     track.addEventListener('scroll', handleScroll, { passive: true });
+
+    const handleGlobalMouseUp = () => {
+      if (isDownRef.current) {
+        isDownRef.current = false;
+        if (trackRef.current) {
+          trackRef.current.style.scrollBehavior = 'smooth';
+          trackRef.current.style.scrollSnapType = 'x mandatory';
+        }
+        window.setTimeout(() => {
+          isDraggingRef.current = false;
+        }, 60);
+      }
+    };
+
+    window.addEventListener('mouseup', handleGlobalMouseUp);
     return () => {
-      window.cancelAnimationFrame(frameId);
       track.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
     };
   }, [handleScroll]);
 
@@ -143,21 +144,23 @@ export default function TryMoreTaste() {
     if (!track) return;
     const card = track.querySelector(`.${styles.card}`);
     const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 24;
-    const cardWidth = card ? card.offsetWidth + gap : 390;
-    const cycleWidth = cardWidth * PRODUCTS.length;
+    const cardWidth = card ? card.offsetWidth + gap : 364;
     track.scrollTo({
-      left: cycleWidth + index * cardWidth,
+      left: index * cardWidth,
       behavior: 'smooth',
     });
   };
 
   const handleMouseDown = (event) => {
+    if (event.button !== 0) return;
     const track = trackRef.current;
     if (!track) return;
     isDownRef.current = true;
     isDraggingRef.current = false;
     startXRef.current = event.pageX - track.offsetLeft;
     scrollLeftRef.current = track.scrollLeft;
+    track.style.scrollBehavior = 'auto';
+    track.style.scrollSnapType = 'none';
   };
 
   const handleMouseMove = (event) => {
@@ -166,16 +169,22 @@ export default function TryMoreTaste() {
     if (!track) return;
     event.preventDefault();
     const x = event.pageX - track.offsetLeft;
-    const distance = (x - startXRef.current) * 1.4;
+    const distance = x - startXRef.current;
     if (Math.abs(distance) > 5) isDraggingRef.current = true;
     track.scrollLeft = scrollLeftRef.current - distance;
   };
 
   const handleMouseUp = () => {
+    if (!isDownRef.current) return;
     isDownRef.current = false;
+    const track = trackRef.current;
+    if (track) {
+      track.style.scrollBehavior = 'smooth';
+      track.style.scrollSnapType = 'x mandatory';
+    }
     window.setTimeout(() => {
       isDraggingRef.current = false;
-    }, 50);
+    }, 60);
   };
 
   const toggleFavorite = (id, e) => {
@@ -211,13 +220,13 @@ export default function TryMoreTaste() {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            {LOOPED_PRODUCTS.map((item) => {
+            {PRODUCTS.map((item) => {
               const isFav = !!favorites[item.id];
               const isAdded = !!addedItems[item.id];
 
               return (
                 <article
-                  key={item.loopKey}
+                  key={item.id}
                   className={styles.card}
                 >
                   {/* Top Image */}
