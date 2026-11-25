@@ -9,9 +9,9 @@
   padding-top: calc(var(--header-height) + 1.5rem);
   padding-bottom: var(--space-4xl);
   overflow: hidden;
-  background-color: #FEF7E6;
+  background-color: #FFFFFF;
   background: radial-gradient(circle at 75% 45%, var(--ambient-bg, rgba(218, 60, 36, 0.12)) 0%, transparent 60%),
-              linear-gradient(180deg, #FEF7E6 0%, #F8EED6 50%, #F5E8C9 100%);
+              #FFFFFF;
   transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;

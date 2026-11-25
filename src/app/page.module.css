@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 50%, rgba(255, 210, 101, 0.15) 100%);
+  background: #FFFFFF;
   overflow: hidden;
   padding-top: var(--header-height);
 }

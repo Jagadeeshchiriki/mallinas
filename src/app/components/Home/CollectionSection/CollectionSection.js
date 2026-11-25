@@ -1,129 +1,135 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './CollectionSection.module.css';
-import darkChocolatesImage from '../../../images/home/Dark chocolate_Hazelnuts.jpg (2).jpeg';
-import milkChocolatesImage from '../../../images/home/Milkchocolate.jpeg';
-import pralinesImage from '../../../images/home/Dark Praline.png';
-import hampersImage from '../../../images/home/Gemini_Generated_Image_sk1o21sk1o21sk1o.png';
-import noSugarImage from '../../../images/home/Dark_chocolate_80.png';
-import newArrivalsImage from '../../../images/home/Darkchocolate_70.jpeg';
+
+// Statically imported images per project rule
+import darkCollectionImg from '../../../../../public/images/home/collection/Mallinas Dark Chocolate Still Life.png';
+import milkCollectionImg from '../../../../../public/images/home/collection/milkcollection.png';
+import pralinesCollectionImg from '../../../../../public/images/home/collection/prallins1.png';
+import giftingCollectionImg from '../../../../../public/images/home/collection/gifting1.png';
+import allCollectionImg from '../../../../../public/images/home/collection/allcollection.png';
+import premiumCollectionImg from '../../../../../public/images/home/collection/Mallinas Premium Chocolate Collection.png';
 
 const COLLECTIONS = [
   {
     id: 'dark',
     title: 'DARK CHOCOLATES',
-    image: darkChocolatesImage,
+    image: darkCollectionImg,
     href: '/shop?category=dark',
   },
   {
     id: 'milk',
     title: 'MILK CHOCOLATES',
-    image: milkChocolatesImage,
+    image: milkCollectionImg,
     href: '/shop?category=milk',
   },
   {
     id: 'pralines',
     title: 'PRALINES',
-    image: pralinesImage,
+    image: pralinesCollectionImg,
     href: '/shop?category=pralines',
   },
   {
     id: 'hampers',
     title: 'GIFT BOXES',
-    image: hampersImage,
+    image: giftingCollectionImg,
     href: '/shop?category=hampers',
   },
   {
     id: 'no-sugar',
-    title: 'NO ADDED SUGAR',
-    image: noSugarImage,
+    title: 'NEW ARRIVALS',
+    image: allCollectionImg,
     href: '/shop?category=sugar-free',
   },
   {
     id: 'new',
-    title: 'NEW ARRIVALS',
-    image: newArrivalsImage,
+    title: 'PREMIUM COLLECTION',
+    image: premiumCollectionImg,
     href: '/shop?category=new',
   },
 ];
 
 export default function CollectionSection() {
-  const sectionRef = useRef(null);
-  const sliderRef = useRef(null);
+  const [visibleItems, setVisibleItems] = useState({});
+  const cardRefs = useRef([]);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    const slider = sliderRef.current;
-    if (!section || !slider) return undefined;
+    if (typeof window === 'undefined') return;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let frameId = 0;
-    let maxHorizontalScroll = 0;
+    if (!('IntersectionObserver' in window)) {
+      const allVisible = {};
+      COLLECTIONS.forEach((item) => {
+        allVisible[item.id] = true;
+      });
+      setVisibleItems(allVisible);
+      return;
+    }
 
-    const updatePosition = () => {
-      frameId = 0;
-      if (reduceMotion.matches || maxHorizontalScroll <= 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('data-id');
+            if (id) {
+              setVisibleItems((prev) => ({ ...prev, [id]: true }));
+              observer.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
 
-      const scrollDistance = section.offsetHeight - window.innerHeight;
-      const progress = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / scrollDistance));
-      slider.scrollLeft = progress * maxHorizontalScroll;
-    };
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
 
-    const requestPositionUpdate = () => {
-      if (!frameId) frameId = window.requestAnimationFrame(updatePosition);
-    };
-
-    const updateLayout = () => {
-      maxHorizontalScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
-      section.style.height = reduceMotion.matches
-        ? 'auto'
-        : `${window.innerHeight + maxHorizontalScroll}px`;
-      requestPositionUpdate();
-    };
-
-    const resizeObserver = new ResizeObserver(updateLayout);
-    resizeObserver.observe(slider);
-    window.addEventListener('scroll', requestPositionUpdate, { passive: true });
-    window.addEventListener('resize', updateLayout);
-    reduceMotion.addEventListener('change', updateLayout);
-    updateLayout();
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener('scroll', requestPositionUpdate);
-      window.removeEventListener('resize', updateLayout);
-      reduceMotion.removeEventListener('change', updateLayout);
-      if (frameId) window.cancelAnimationFrame(frameId);
-      section.style.height = '';
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.collectionSection}>
-      <div className={styles.stickyContent}>
-        <div className={styles.container}>
+    <section className={styles.collectionSection}>
+      <div className={styles.container}>
         {/* Header */}
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>FARM TO BAR COLLECTION</h2>
+          <h2 className={styles.sectionTitle}>Farm To Bar Collection</h2>
           <p className={styles.sectionSubtitle}>
             Every bar is a journey of origin and craft.
           </p>
         </div>
 
-        <div className={`${styles.productSlider} product-slider`}>
-          <div ref={sliderRef} className={`${styles.sliderInner} product-slider__inner`}>
-            {COLLECTIONS.map((item, index) => (
-              <Link key={item.id} href={item.href} className={styles.card}>
+        {/* 2-Row Grid View with Scroll Reveal */}
+        <div className={styles.gridContainer}>
+          {COLLECTIONS.map((item, index) => {
+            const isVisible = !!visibleItems[item.id];
+            const colIndex = index % 3;
+            const rowIndex = Math.floor(index / 3);
+            const delayMs = colIndex * 120 + rowIndex * 160;
+
+            return (
+              <Link
+                key={item.id}
+                ref={(el) => (cardRefs.current[index] = el)}
+                data-id={item.id}
+                href={item.href}
+                className={`${styles.card} ${isVisible ? styles.cardVisible : ''}`}
+                style={{
+                  transitionDelay: isVisible ? `${delayMs}ms` : '0ms',
+                }}
+              >
                 <div className={styles.imageWrapper}>
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    sizes="(max-width: 768px) 82vw, (max-width: 1200px) 38vw, 29vw"
+                    loading={index < 3 ? 'eager' : 'lazy'}
+                    sizes="(max-width: 580px) 90vw, (max-width: 900px) 45vw, 360px"
                     className={styles.cardImage}
                   />
                   <div className={styles.cardOverlay} />
@@ -132,12 +138,10 @@ export default function CollectionSection() {
                   <h3 className={styles.cardTitle}>{item.title}</h3>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
-

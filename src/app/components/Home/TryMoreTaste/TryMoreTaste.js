@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import styles from './TryMoreTaste.module.css';
 
 // Statically imported images
-import tasteDarkchocolate from '../../../../../public/images/products/dark-70-almond.png';
+import tasteDarkchocolate from '../../../../../public/images/products/dark-100.png';
 import tasteRaspberry from '../../../../../public/images/products/milk-50.jpg';
-import tasteBlueberry from '../../../../../public/images/products/milk-50.jpg';
+import tasteBlueberry from '../../../../../public/images/products/dark-80.png';
 import tasteMatcha from '../../../../../public/images/products/dark-70-cashew.jpg';
-import tasteHazelnutDark from '../../../../../public/images/products/taste-hazelnut-dark.jpg';
-import tasteAlmondDark from '../../../../../public/images/products/taste-almond-dark.jpg';
-import tasteCashewDark from '../../../../../public/images/products/taste-cashew-dark.jpg';
+import tasteHazelnutDark from '../../../../../public/images/products/dark-90.png';
+import tasteAlmondDark from '../../../../../public/images/products/Dark chocolate_Almonds.jpeg';
+import tasteCashewDark from '../../../../../public/images/products/dark-70-cashew.jpg';
 import tasteHazelnutMilk from '../../../../../public/images/products/taste-hazelnut-milk.jpg';
 import tasteDarkPraline from '../../../../../public/images/products/taste-dark-praline.png';
 import tasteMilkPraline from '../../../../../public/images/products/taste-milk-praline.png';
@@ -19,28 +19,28 @@ import tasteMilkPraline from '../../../../../public/images/products/taste-milk-p
 const PRODUCTS = [
   {
     id: 1,
-    name: '70% Dark chocolate',
+    name: '100% Dark chocolate',
     subtitle: 'A luxurious chocolate inspired by Dubai',
     price: 'Rs. 200.00',
     image: tasteDarkchocolate,
   },
   {
     id: 2,
-    name: 'Raspberry Chocolate',
+    name: 'Milk Chocolate',
     subtitle: 'A flavorful blend of raspberry and chocolate',
     price: 'Rs. 200.00',
     image: tasteRaspberry,
   },
   {
     id: 3,
-    name: 'Blueberry Chocolate',
+    name: '80% Dark Chocolate',
     subtitle: 'A delightful mix of blueberry and chocolate',
     price: 'Rs. 200.00',
     image: tasteBlueberry,
   },
   {
     id: 4,
-    name: 'Matcha chocolate',
+    name: '70% Dark chocolate',
     subtitle: 'A smooth blend of matcha and chocolate',
     price: 'Rs. 200.00',
     image: tasteMatcha,
@@ -89,86 +89,91 @@ const PRODUCTS = [
   },
 ];
 
+const LOOPED_PRODUCTS = Array.from({ length: 3 }, (_, cycle) =>
+  PRODUCTS.map((product) => ({ ...product, loopKey: `${cycle}-${product.id}` })),
+).flat();
+
 export default function TryMoreTaste() {
   const trackRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);
   const [favorites, setFavorites] = useState({});
   const [addedItems, setAddedItems] = useState({});
 
-  // Drag states
   const isDownRef = useRef(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
   const isDraggingRef = useRef(false);
 
-  // Update active dot based on scroll position
   const handleScroll = useCallback(() => {
     const track = trackRef.current;
     if (!track) return;
     const card = track.querySelector(`.${styles.card}`);
     if (!card) return;
-    const cardWidth = card.offsetWidth + 18; // width + gap
-    const index = Math.round(track.scrollLeft / cardWidth);
-    const clamped = Math.max(0, Math.min(index, PRODUCTS.length - 1));
-    setActiveDot(clamped);
+    const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 24;
+    const cardWidth = card.offsetWidth + gap;
+    const cycleWidth = cardWidth * PRODUCTS.length;
+
+    if (track.scrollLeft < cycleWidth * 0.5) {
+      track.scrollLeft += cycleWidth;
+    } else if (track.scrollLeft > cycleWidth * 1.5) {
+      track.scrollLeft -= cycleWidth;
+    }
+
+    const position = ((track.scrollLeft - cycleWidth) % cycleWidth + cycleWidth) % cycleWidth;
+    setActiveDot(Math.round(position / cardWidth) % PRODUCTS.length);
   }, []);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track) return undefined;
+    const card = track.querySelector(`.${styles.card}`);
+    const frameId = window.requestAnimationFrame(() => {
+      const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 24;
+      if (card) track.scrollLeft = (card.offsetWidth + gap) * PRODUCTS.length;
+    });
     track.addEventListener('scroll', handleScroll, { passive: true });
-    return () => track.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      track.removeEventListener('scroll', handleScroll);
+    };
   }, [handleScroll]);
 
-  // Navigate left/right
-  const scrollByCard = (direction) => {
+  const scrollToDot = (index) => {
     const track = trackRef.current;
     if (!track) return;
     const card = track.querySelector(`.${styles.card}`);
-    const cardWidth = card ? card.offsetWidth + 18 : 280;
-    track.scrollBy({
-      left: direction * cardWidth,
-      behavior: 'smooth',
-    });
-  };
-
-  const scrollToDot = (idx) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.querySelector(`.${styles.card}`);
-    const cardWidth = card ? card.offsetWidth + 18 : 280;
+    const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 24;
+    const cardWidth = card ? card.offsetWidth + gap : 390;
+    const cycleWidth = cardWidth * PRODUCTS.length;
     track.scrollTo({
-      left: idx * cardWidth,
+      left: cycleWidth + index * cardWidth,
       behavior: 'smooth',
     });
   };
 
-  // Drag mouse event handlers
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (event) => {
     const track = trackRef.current;
     if (!track) return;
     isDownRef.current = true;
     isDraggingRef.current = false;
-    startXRef.current = e.pageX - track.offsetLeft;
+    startXRef.current = event.pageX - track.offsetLeft;
     scrollLeftRef.current = track.scrollLeft;
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (event) => {
     if (!isDownRef.current) return;
     const track = trackRef.current;
     if (!track) return;
-    e.preventDefault();
-    const x = e.pageX - track.offsetLeft;
-    const walk = (x - startXRef.current) * 1.4;
-    if (Math.abs(walk) > 5) {
-      isDraggingRef.current = true;
-    }
-    track.scrollLeft = scrollLeftRef.current - walk;
+    event.preventDefault();
+    const x = event.pageX - track.offsetLeft;
+    const distance = (x - startXRef.current) * 1.4;
+    if (Math.abs(distance) > 5) isDraggingRef.current = true;
+    track.scrollLeft = scrollLeftRef.current - distance;
   };
 
   const handleMouseUp = () => {
     isDownRef.current = false;
-    setTimeout(() => {
+    window.setTimeout(() => {
       isDraggingRef.current = false;
     }, 50);
   };
@@ -197,21 +202,7 @@ export default function TryMoreTaste() {
         {/* Section Heading */}
         <h2 className={styles.heading}>Try More Taste</h2>
 
-        {/* Carousel Shell with Navigation Arrows */}
         <div className={styles.carouselWrapper}>
-          {/* Left Arrow Button */}
-          <button
-            type="button"
-            className={`${styles.navBtn} ${styles.prevBtn}`}
-            onClick={() => scrollByCard(-1)}
-            aria-label="Previous products"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-
-          {/* Cards Track */}
           <div
             ref={trackRef}
             className={styles.track}
@@ -220,19 +211,22 @@ export default function TryMoreTaste() {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            {PRODUCTS.map((item) => {
+            {LOOPED_PRODUCTS.map((item) => {
               const isFav = !!favorites[item.id];
               const isAdded = !!addedItems[item.id];
 
               return (
-                <div key={item.id} className={styles.card}>
+                <article
+                  key={item.loopKey}
+                  className={styles.card}
+                >
                   {/* Top Image */}
                   <div className={styles.imgWrapper}>
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      sizes="(max-width: 640px) 290px, (max-width: 1024px) 295px, 320px"
+                      sizes="(max-width: 620px) 88vw, (max-width: 960px) 48vw, 390px"
                       className={styles.productImg}
                       draggable={false}
                     />
@@ -285,33 +279,20 @@ export default function TryMoreTaste() {
                       </button>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
-
-          {/* Right Arrow Button */}
-          <button
-            type="button"
-            className={`${styles.navBtn} ${styles.nextBtn}`}
-            onClick={() => scrollByCard(1)}
-            aria-label="Next products"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
         </div>
 
-        {/* Pagination Dots */}
         <div className={styles.dotsWrapper} aria-label="Carousel pagination">
-          {PRODUCTS.map((item, idx) => (
+          {PRODUCTS.map((item, index) => (
             <button
               key={item.id}
               type="button"
-              className={`${styles.dot} ${activeDot === idx ? styles.dotActive : ''}`}
-              onClick={() => scrollToDot(idx)}
-              aria-label={`Go to product ${idx + 1}`}
+              className={`${styles.dot} ${activeDot === index ? styles.dotActive : ''}`}
+              onClick={() => scrollToDot(index)}
+              aria-label={`Go to product ${index + 1}`}
             />
           ))}
         </div>

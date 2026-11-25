@@ -17,7 +17,7 @@
   height: 100vh;
   /* relative so children can use position: absolute */
   overflow: hidden;
-  background: var(--color-cream, #FEF7E6);
+  background: var(--color-cream, #FFFFFF);
 }
 
 /* ============================================================
@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   padding: 0 clamp(2rem, 4vw, 5rem);
-  background: var(--color-cream, #FEF7E6);
+  background: var(--color-cream, #FFFFFF);
   z-index: 2;
 }
 
@@ -45,7 +45,7 @@
 .eyebrow {
   font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-caramel, #C9873A);
@@ -53,13 +53,13 @@
 
 .heading {
   font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 5vw, 5.2rem);
-  font-weight: 600;
-  line-height: 0.95;
+  font-size: clamp(2.65rem, 4.9vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--color-chocolate, #3E2723);
   margin: 0;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .desc {
@@ -91,18 +91,27 @@
   height: 100%;
   overflow: hidden;
   flex-shrink: 0;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
   transition: flex 0.72s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* Active: fills remaining space */
 .cardActive {
   flex: 1 1 auto;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
 }
 
 /* Strip (inactive): thin column */
 .cardStrip {
   flex: 0 0 58px;
   cursor: pointer;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
 }
 
 /* ── Image — absolute fill of card ── */
@@ -115,10 +124,15 @@
   object-fit: cover;
   object-position: center center;
   border-radius: 0 !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
   transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cardActive:hover .cardImage {
+  border-radius: 0 !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
   transform: scale(1.03);
 }
 
@@ -164,7 +178,7 @@
 .cardTagline {
   font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #FFD265;
@@ -173,7 +187,7 @@
 .cardTitle {
   font-family: var(--font-heading);
   font-size: clamp(1.9rem, 3vw, 3rem);
-  font-weight: 700;
+  font-weight: 500;
   color: #FFFFFF;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -204,7 +218,7 @@
 .stripTitle {
   font-family: var(--font-heading);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
@@ -233,10 +247,6 @@
     padding: 3rem 1.5rem 1.5rem;
   }
 
-  .heading {
-    font-size: clamp(2.4rem, 10vw, 3.2rem);
-  }
-
   .rightPanel {
     position: relative;
     left: 0;
@@ -256,6 +266,9 @@
     min-width: 85vw !important;
     height: 100%;
     scroll-snap-align: start;
+    border-radius: 0 !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
     transition: none;
     cursor: default;
   }

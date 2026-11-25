@@ -5,12 +5,13 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import logoImage from '../../images/home/logo.png';
+import whiteLogoImage from '../../images/home/logo_white.png';
 import styles from './Header.module.css';
 
 const navLinks = [
   { href: '/about', label: 'OUR STORY', subtitle: 'Soil to sweetness & 25 yrs of organic farming' },
   { href: '/shop', label: 'SHOP', subtitle: 'Single-origin bars, pralines & gift boxes' },
-  { href: '/workshop', label: 'WORKSHOPS', subtitle: 'Farm sanctuary & hands-on masterclasses' },
+  { href: '/farm-to-bar', label: 'FARM TO BAR', subtitle: 'Farm sanctuary & hands-on masterclasses' },
   { href: '/contact', label: 'CONTACT', subtitle: 'Godavari farm estate & bespoke gifting' },
 ];
 
@@ -19,12 +20,15 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isDarkHero = pathname === '/' || pathname === '/shop' || pathname === '/about';
+  const isHomePage = pathname === '/' || pathname === '/home';
+  const hasTransparentHeader = isHomePage && !scrolled;
+  const headerLogo = hasTransparentHeader ? whiteLogoImage : logoImage;
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 25);
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -58,7 +62,7 @@ export default function Header() {
 
   return (
     <header
-      className={`${styles.headerWrapper} ${scrolled ? styles.headerScrolled : ''}`}
+      className={`${styles.headerWrapper} ${hasTransparentHeader ? styles.headerDarkHero : ''} ${isHomePage && scrolled ? styles.headerScrolled : ''}`}
     >
       {/* Main Navbar */}
       <div className={styles.headerNav}>
@@ -66,7 +70,7 @@ export default function Header() {
           {/* Official Brand Logo */}
           <Link href="/" className={styles.logoLink} aria-label="Mallinas Chocolates Home">
             <Image
-              src={logoImage}
+              src={headerLogo}
               alt="Mallinas Chocolates"
               width={145}
               height={53}

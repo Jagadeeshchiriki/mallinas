@@ -1,5 +1,5 @@
 .productSection {
-  background-color: #FAF4E8;
+  background-color: #FFFFFF;
   padding: var(--space-4xl) 0 var(--space-3xl);
 }
 
@@ -40,7 +40,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: #F3EADB;
+  background-color: #FFFFFF;
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(56, 30, 20, 0.06);

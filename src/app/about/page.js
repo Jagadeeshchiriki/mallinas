@@ -46,8 +46,8 @@ export default function AboutPage() {
             <div className={styles.timelineItem}>
               <div className={styles.timelineDot} />
               <div className={styles.timelineYear}>2023</div>
-              <h4>Workshops Launch</h4>
-              <p>Began hosting chocolate-making workshops, sharing the art with aspiring chocolatiers.</p>
+              <h4>Farm to Bar Launch</h4>
+              <p>Began hosting farm-to-bar experiences, sharing the art with aspiring chocolatiers.</p>
             </div>
             <div className={styles.timelineItem}>
               <div className={styles.timelineDot} />

@@ -2,6 +2,7 @@ import { Bebas_Neue, Geist, Geist_Mono } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Header from "./components/Header/Header";
+import CtaSection from "./components/Home/CtaSection/CtaSection";
 import Footer from "./components/Footer/Footer";
 import SmoothScroll from "./components/SmoothScroll/SmoothScroll";
 
@@ -23,7 +24,7 @@ const bebasNeue = Bebas_Neue({
 
 export const metadata = {
   title: "Mallina's Chocolates | Handcrafted Artisan Chocolates",
-  description: "Discover handcrafted artisan chocolates made with premium ingredients and love. Gift boxes, truffles, workshops, and more from Mallina's Chocolates.",
+  description: "Discover handcrafted artisan chocolates made with premium ingredients and love. Gift boxes, truffles, farm-to-bar experiences, and more from Mallina's Chocolates.",
 };
 
 export default function RootLayout({ children }) {
@@ -33,7 +34,10 @@ export default function RootLayout({ children }) {
         <SmoothScroll>
           <Header />
           <main>{children}</main>
-          <Footer />
+          <div className="site-outro">
+            <CtaSection />
+            <Footer />
+          </div>
         </SmoothScroll>
       </body>
     </html>

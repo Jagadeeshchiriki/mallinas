@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import logoImage from '../../images/home/logo.png';
+import logoImage from '../../images/home/logo_white.png';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -27,19 +27,33 @@ export default function Footer() {
             <h4 className={styles.colTitle}>CONTACT INFORMATION</h4>
             <div className={styles.contactList}>
               <div className={styles.contactItem}>
-                <span className={styles.contactIcon}>📍</span>
+                <span className={styles.contactIcon} aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="2.5" />
+                  </svg>
+                </span>
                 <span className={styles.contactText}>
                   Karravari Savaram, Undrajavaram Mandal, Tanuku, East Godavari, Andhra Pradesh
                 </span>
               </div>
               <div className={styles.contactItem}>
-                <span className={styles.contactIcon}>📞</span>
+                <span className={styles.contactIcon} aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z" />
+                  </svg>
+                </span>
                 <a href="tel:9502540033" className={styles.contactLink}>
-                  +91 95025 40033 / 9382143103
+                  +91 95025 40033
                 </a>
               </div>
               <div className={styles.contactItem}>
-                <span className={styles.contactIcon}>✉️</span>
+                <span className={styles.contactIcon} aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m3 7 9 6 9-6" />
+                  </svg>
+                </span>
                 <a href="mailto:mallinaschocolates@gmail.com" className={styles.contactLink}>
                   mallinaschocolates@gmail.com
                 </a>
@@ -58,9 +72,9 @@ export default function Footer() {
                     <circle cx="17.4" cy="6.7" r="1" className={styles.iconFill} />
                   </svg>
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Facebook">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.facebookIcon}>
-                    <path d="M14.2 8.2V6.6c0-.8.5-1 1-1h2.6V1.2L14.2 1C10.3 1 9.4 3.9 9.4 6.3v1.9H7v4.9h2.4V23h4.8v-9.9h3.2l.5-4.9h-3.7Z" />
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="YouTube">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.youtubeIcon}>
+                    <path fillRule="evenodd" d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A30 30 0 0 0 2 12a30 30 0 0 0 .4 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2A30 30 0 0 0 22 12a30 30 0 0 0-.4-4.8ZM10 15.2l5-3.2-5-3.2v6.4Z" />
                   </svg>
                 </a>
                 <a href="https://wa.me/919502540033" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="WhatsApp">
@@ -71,11 +85,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Big Faint Watermark Logo at the bottom */}
-        <div className={styles.watermarkWrap}>
-          <span className={styles.watermarkText}>Mallinas</span>
         </div>
 
         {/* Copyright */}

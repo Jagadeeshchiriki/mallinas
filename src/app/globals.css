@@ -3,8 +3,8 @@
 /* ===== Design Tokens ===== */
 :root {
   /* Brand Colors */
-  --color-cream: #FEF7E6;
-  --color-cream-dark: #F6ECD3;
+  --color-cream: #FFFFFF;
+  --color-cream-dark: #FFFFFF;
   --color-gold: #FFD265;
   --color-gold-dark: #E5B84D;
   --color-red: #DA3C24;
@@ -86,7 +86,7 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--color-dark);
-  background-color: var(--color-cream);
+  background-color: var(--color-white);
   overflow-x: hidden;
 }
 
@@ -156,7 +156,7 @@ button {
 }
 
 .section-cream {
-  background-color: var(--color-cream);
+  background-color: var(--color-white);
 }
 
 .section-white {
@@ -463,4 +463,10 @@ button {
 /* ===== Main content ===== */
 main {
   flex: 1;
+}
+
+/* Shared full-screen CTA and footer reveal used by every route. */
+.site-outro {
+  position: relative;
+  background: #170c08;
 }

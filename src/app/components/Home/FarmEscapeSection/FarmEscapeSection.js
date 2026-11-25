@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './FarmEscapeSection.module.css';
-import stayImage from '../../../images/Rectangle_2.png';
+import stayImage from '../../../../../public/images/home/stayhome.png';
 import diningImage from '../../../images/Rectangle_3.png';
 import hearthImage from '../../../images/home/Darkchocolate_70.jpeg';
 import trailsImage from '../../../images/about/CANOPY.jpg';
@@ -84,7 +84,7 @@ export default function FarmEscapeSection() {
         <div className={styles.leftPanel}>
           <div className={styles.leftInner}>
             <h2 className={styles.heading}>
-              A FARM<br />ESCAPE
+              A Farm Escape
             </h2>
             <p className={styles.desc}>
               Five curated experiences from our Godavari cocoa estate — where nature,

@@ -6,31 +6,31 @@ import styles from './VisualDiarySection.module.css';
 import harvestImage from '../../../images/home/1770452592485.png';
 import roastingImage from '../../../images/home/1770452670706.png';
 import sanctuaryImage from '../../../images/home/1770452755922.png';
-import finishedBarImage from '../../../images/home/123.jpg.jpeg';
+import finishedBarImage from '../../../images/home/craftedgift.jpg';
 
 const DIARY_ITEMS = [
   {
     id: 1,
-    title: 'The Harvest',
-    caption: 'Hands cracking open fresh, ripe cacao pods at dawn.',
+    title: 'Cashew Indulgence',
+    caption: 'Rich chocolate meets the delicate crunch of premium cashew',
     image: harvestImage,
   },
   {
     id: 2,
-    title: 'The Roasting',
-    caption: 'Freshly roasted cacao beans steaming in wooden cooling trays.',
+    title: 'Hazelnut Delight',
+    caption: 'A delicious harmony of smooth chocolate and roasted hazelnuts.',
     image: roastingImage,
   },
   {
     id: 3,
-    title: 'The Sanctuary',
-    caption: 'Sunlight filtering through morning mist into the estate villa.',
+    title: 'Almond Elegance',
+    caption: 'The irresistible combination of fine chocolate and crunchy almonds.',
     image: sanctuaryImage,
   },
   {
     id: 4,
-    title: 'The Finished Bar',
-    caption: 'Stone-ground, single-origin chocolate bars resting on linen.',
+    title: 'Crafted to Gift',
+    caption: 'Thoughtfully crafted chocolates for every special moment.',
     image: finishedBarImage,
     isViewAllCard: true,
   },
@@ -42,9 +42,9 @@ export default function VisualDiarySection() {
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>THE VISUAL DIARY</h2>
+          <h2 className={styles.sectionTitle}>THE CHOCOLATE DIARY</h2>
           <p className={styles.sectionSubtitle}>
-            Moments from the soil, the craft, and the stay.
+            Little moments of indulgence, crafted with love.
           </p>
         </div>
 

@@ -1,7 +1,6 @@
 import ShopHero from '../components/Shop/ShopHero/ShopHero';
 import ProductGrid from '../components/Shop/ProductGrid/ProductGrid';
 import CollectionSection from '../components/Home/CollectionSection/CollectionSection';
-import CtaSection from '../components/Home/CtaSection/CtaSection';
 
 export const metadata = {
   title: "Shop Single Origin Collection | Mallina's Chocolates",
@@ -21,8 +20,6 @@ export default function ShopPage() {
       {/* 3. Below Products: FARM TO BAR COLLECTION (as requested) */}
       <CollectionSection />
 
-      {/* 4. Statement CTA: CHOCOLATE, LIKE NOWHERE ELSE ON EARTH. */}
-      <CtaSection />
     </div>
   );
 }

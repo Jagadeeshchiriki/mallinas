@@ -1,0 +1,150 @@
+.farmingSection {
+  position: relative;
+  height: 220vh;
+  background-color: transparent;
+  color: #FFFFFF;
+}
+
+.stickyContainer {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.videoFrame {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  will-change: clip-path;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(23, 14, 10, 0.28) 0%,
+    rgba(23, 14, 10, 0.55) 70%,
+    rgba(23, 14, 10, 0.72) 100%
+  );
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  width: 95%;
+  max-width: 1200px;
+  pointer-events: none;
+  transform: translateY(-11vh);
+}
+
+.title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.85rem, 3.6vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-transform: capitalize;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.65);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.subtext {
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, sans-serif);
+  font-size: clamp(0.92rem, 1.5vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 52ch;
+  margin: clamp(0.85rem, 1.8vw, 1.3rem) auto 0;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.01em;
+}
+
+.soundBtn {
+  position: absolute;
+  bottom: clamp(1.5rem, 3vh, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.soundBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.08);
+}
+
+@media (max-width: 768px) {
+  .farmingSection {
+    height: 180vh;
+  }
+
+  .content {
+    transform: translateY(-7vh);
+    width: 96%;
+  }
+
+  .title {
+    font-size: clamp(1.4rem, 5.2vw, 2.1rem);
+    white-space: normal;
+  }
+
+  .soundBtn {
+    width: 38px;
+    height: 38px;
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .farmingSection {
+    height: auto;
+  }
+
+  .stickyContainer {
+    position: relative;
+    height: 80vh;
+  }
+
+  .videoFrame {
+    clip-path: none !important;
+  }
+}

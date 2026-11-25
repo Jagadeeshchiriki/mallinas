@@ -2,6 +2,8 @@ import Hero from './Hero';
 import CollectionSection from '../components/Home/CollectionSection/CollectionSection';
 import JourneySection from '../components/Home/JourneySection/JourneySection';
 import FarmEscapeSection from '../components/Home/FarmEscapeSection/FarmEscapeSection';
+import ExperienceSection from '../components/Home/ExperienceSection/ExperienceSection';
+import FarmingSection from '../components/Home/FarmingSection/FarmingSection';
 import VisualDiarySection from '../components/Home/VisualDiarySection/VisualDiarySection';
 import StatementBanner from '../components/Home/StatementBanner/StatementBanner';
 import styles from './home.module.css';
@@ -27,10 +29,16 @@ export default function HomePage() {
       {/* 4. Sanctuary: A FARM ESCAPE ("THE STAY" Interactive Slices) */}
       <FarmEscapeSection />
 
-      {/* 5. Gallery: THE VISUAL DIARY (Moments from the soil, craft, and stay) */}
+      {/* 5. Experiences */}
+      <ExperienceSection />
+
+      {/* 6. Farming: Fullscreen scroll-expand video with chocomaking.mp4 */}
+      <FarmingSection />
+
+      {/* 7. Gallery: THE VISUAL DIARY (Moments from the soil, craft, and stay) */}
       <VisualDiarySection />
 
-      {/* 6. Statement: CHOCOLATE, LIKE NOWHERE ELSE ON EARTH. */}
+      {/* 8. Statement: CHOCOLATE, LIKE NOWHERE ELSE ON EARTH. */}
       <StatementBanner />
     </div>
   );
